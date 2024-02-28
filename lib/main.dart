@@ -5,8 +5,16 @@ import 'package:financial_calculator/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  ExpensesProvider expensesProvider = ExpensesProvider();
+  await expensesProvider.loadExpenses();
+
+  IncomeProvider incomeProvider = IncomeProvider();
+  await incomeProvider.loadIncome();
   runApp(
     DevicePreview(
       builder: (context) => MultiProvider(

@@ -13,6 +13,11 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
+  Future<int> calculateTotal(Function() getTotal) async {
+    await getTotal();
+    return getTotal();
+  }
+
   late int _currentIndex;
   late List<bool> isSelected;
 
@@ -92,20 +97,34 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     'Общая сумма',
                     style: discriptionText.copyWith(color: Colors.white),
                   ),
-                  Consumer<IncomeProvider>(
-                    builder: (context, incomeProvider, _) {
-                      int totalIncome = incomeProvider.getTotalIncome();
-                      return Consumer<ExpensesProvider>(
-                        builder: (context, expensesProvider, _) {
-                          int totalExpenses =
-                              expensesProvider.getTotalExpenses();
-                          int overallTotal = totalIncome - totalExpenses;
-                          return Text(
-                            '$overallTotal ₽',
-                            style: discriptionText,
-                          );
-                        },
-                      );
+                  FutureBuilder(
+                    future: Future.wait([
+                      Provider.of<IncomeProvider>(context, listen: false)
+                          .loadIncome(),
+                      Provider.of<ExpensesProvider>(context, listen: false)
+                          .loadExpenses(),
+                    ]),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Consumer<IncomeProvider>(
+                          builder: (context, incomeProvider, _) {
+                            int totalIncome = incomeProvider.getTotalIncome();
+                            return Consumer<ExpensesProvider>(
+                              builder: (context, expensesProvider, _) {
+                                int totalExpenses =
+                                    expensesProvider.getTotalExpenses();
+                                int overallTotal = totalIncome - totalExpenses;
+                                return Text(
+                                  '$overallTotal ₽',
+                                  style: discriptionText,
+                                );
+                              },
+                            );
+                          },
+                        );
+                      } else {
+                        return CircularProgressIndicator();
+                      }
                     },
                   ),
                 ],
@@ -130,9 +149,25 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           'Доходы',
                           style: discriptionText.copyWith(color: Colors.white),
                         ),
-                        Text(
-                          '${incomeProvider.getTotalIncome()}₽',
-                          style: discriptionText,
+                        Consumer<IncomeProvider>(
+                          builder: (context, incomeProvider, _) {
+                            return FutureBuilder<int>(
+                              future:
+                                  calculateTotal(incomeProvider.getTotalIncome),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  int totalIncome = snapshot.data ?? 0;
+                                  return Text(
+                                    '$totalIncome ₽',
+                                    style: discriptionText,
+                                  );
+                                } else {
+                                  return CircularProgressIndicator();
+                                }
+                              },
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -157,10 +192,26 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    '-${expensesProvider.getTotalExpenses()}₽',
-                                    style: discriptionText,
-                                  ),
+                                  Consumer<ExpensesProvider>(
+                                      builder: (context, expensesProvider, _) {
+                                    return FutureBuilder<int>(
+                                      future: calculateTotal(
+                                          expensesProvider.getTotalExpenses),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.done) {
+                                          int totalExpenses =
+                                              snapshot.data ?? 0;
+                                          return Text(
+                                            '$totalExpenses ₽',
+                                            style: discriptionText,
+                                          );
+                                        } else {
+                                          return CircularProgressIndicator();
+                                        }
+                                      },
+                                    );
+                                  }),
                                 ],
                               ),
                             ),
@@ -177,81 +228,30 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
   Widget buildBarChart(int currentIndex, IncomeProvider incomeProvider,
       ExpensesProvider expensesProvider) {
-    List<int> dailyIncomes;
-    List<int> dailyExpenses;
+    List<IncomeModel> incomeList = incomeProvider.incomeList;
+    List<ExpensesModel> expenseList = expensesProvider.expensesList;
 
-    switch (currentIndex) {
-      case 0:
-        dailyIncomes = incomeProvider
-            .getIncomeForDate(DateTime.now())
-            .map((income) => income.cost!)
-            .toList();
-        dailyExpenses = expensesProvider
-            .getExpensesForDate(DateTime.now())
-            .map((expense) => expense.cost!)
-            .toList();
-        break;
-      case 1:
-        dailyIncomes = incomeProvider
-            .getIncomeByDate(
-                DateTime.now().subtract(Duration(days: 30)), DateTime.now())
-            .values
-            .toList();
-        dailyExpenses = expensesProvider
-            .getExpensesByDate(
-                DateTime.now().subtract(Duration(days: 30)), DateTime.now())
-            .values
-            .toList();
-        break;
-      case 2:
-        dailyIncomes = incomeProvider
-            .getIncomeByDate(
-                DateTime.now().subtract(Duration(days: 12)), DateTime.now())
-            .values
-            .toList();
-        dailyExpenses = expensesProvider
-            .getExpensesByDate(
-                DateTime.now().subtract(Duration(days: 12)), DateTime.now())
-            .values
-            .toList();
-        break;
-      default:
-        dailyIncomes = [];
-        dailyExpenses = [];
-    }
+    DailyDataWithChart result =
+        generateDailyData(incomeList, expenseList, currentIndex);
 
-    int maxDailyIncome = dailyIncomes.isNotEmpty
-        ? dailyIncomes
-            .reduce((value, element) => value > element ? value : element)
-        : 1;
-    int maxDailyExpense = dailyExpenses.isNotEmpty
-        ? dailyExpenses
-            .reduce((value, element) => value > element ? value : element)
-        : 1;
-
-    int overallTotal = dailyIncomes.isNotEmpty
-        ? dailyIncomes.fold(0, (sum, income) => sum + income)
-        : 1;
+    List<DailyData> dailyData = result.dailyData;
+    BarChart? barChart = result.barChart;
+    List<BarChartGroupData> barChartGroups = generateBarChartGroups(dailyData);
 
     return BarChart(
       BarChartData(
-        gridData: FlGridData(show: false),
-        titlesData: FlTitlesData(show: false),
         borderData: FlBorderData(show: false),
-        barGroups: List.generate(
-          dailyIncomes.length,
-          (index) => BarChartGroupData(
-            x: index,
-            barRods: [
-              BarChartRodData(
-                width: 22,
-                toY: (dailyIncomes[index] - dailyExpenses[index]) /
-                    (maxDailyIncome + maxDailyExpense) *
-                    overallTotal,
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(4),
-              ),
-            ],
+        gridData: FlGridData(show: false),
+        titlesData: FlTitlesData(
+          bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        ),
+        barGroups: barChartGroups,
+        barTouchData: BarTouchData(
+          touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.transparent,
           ),
         ),
       ),

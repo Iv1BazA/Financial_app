@@ -87,13 +87,6 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
     percent = totalInterest.toStringAsFixed(2);
     monthpay = monthlyPayment.toStringAsFixed(2);
     fullcash = totalAmount.toStringAsFixed(2);
-    print(
-        "Основной долг: ${(propertyCost - downPayment).toStringAsFixed(2)} рублей");
-    print("Процентная ставка: ${(interestRate * 100).toStringAsFixed(2)}%");
-    print("Ежемесячная оплата: ${monthlyPayment.toStringAsFixed(2)} рублей");
-    print("Начисленные проценты: ${totalInterest.toStringAsFixed(2)} рублей");
-    print(
-        "Общая сумма (Долг + Проценты): ${totalAmount.toStringAsFixed(2)} рублей");
   }
 
   @override

@@ -28,6 +28,24 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
   final categoryname = TextEditingController();
   final MaskTextInputFormatter dateMaskFormatter = MaskTextInputFormatter(
       mask: '##.##.####', filter: {"#": RegExp(r'[0-9]')});
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime currentDate = DateTime.now();
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: currentDate,
+      firstDate:
+          currentDate.subtract(Duration(days: 365)), // Ограничение на год назад
+      lastDate:
+          currentDate.add(Duration(days: 365)), // Ограничение на год вперед
+    );
+
+    if (pickedDate != null && pickedDate != currentDate) {
+      setState(() {
+        datecontroller.text = DateFormat('dd.MM.yyyy').format(pickedDate);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ExpensesProvider expensesProvider = Provider.of<ExpensesProvider>(context);
@@ -84,11 +102,13 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
           ),
           SizedBox(height: 5),
           TextField(
-            inputFormatters: [dateMaskFormatter],
+            readOnly: true,
             controller: datecontroller,
-            style: discriptionText.copyWith(color: Colors.white),
-            decoration:
-                styleTextField.copyWith(prefixIcon: Icon(Icons.calendar_month)),
+            style: TextStyle(color: Colors.white),
+            decoration: styleTextField,
+            onTap: () {
+              _selectDate(context);
+            },
           ),
           SizedBox(height: 25),
           Text(
@@ -117,6 +137,8 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                 );
 
                 expensesProvider.addExpense(expense);
+                expensesProvider.loadExpenses();
+                Navigator.of(context).pop();
               },
               child: Text(
                 'Добавить',
