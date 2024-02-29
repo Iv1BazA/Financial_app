@@ -72,7 +72,6 @@ class _SplashScreenState extends State<SplashScreen> {
       showInstructions = shouldShowInstructions;
     });
 
-    // Если инструкции еще не отображались, отобразите их
     if (showInstructions) {
       await prefs.setBool('showInstructions', false);
       Navigator.pushReplacement(

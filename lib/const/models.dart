@@ -229,7 +229,7 @@ class DailyData {
 
 class DailyDataWithChart {
   List<DailyData> dailyData;
-  BarChart? barChart; // Сделаем barChart необязательным (nullable)
+  BarChart? barChart;
 
   DailyDataWithChart(this.dailyData, this.barChart);
 }
@@ -294,7 +294,6 @@ DailyDataWithChart generateDailyData(List<IncomeModel> incomeList,
         ),
       );
 
-      // Возвращаем DailyDataWithChart с dailyData и barChart
       return DailyDataWithChart(yearlyData, barChart);
   }
 
@@ -317,7 +316,6 @@ DailyDataWithChart generateDailyData(List<IncomeModel> incomeList,
     dailyData.add(DailyData(date, totalAmount));
   }
 
-  // Возвращаем DailyDataWithChart с dailyData (без графика)
   return DailyDataWithChart(dailyData, null);
 }
 
