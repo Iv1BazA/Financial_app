@@ -53,23 +53,23 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Главная',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.analytics),
-            label: 'Аналитика',
+            label: 'Analytics',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calculate),
-            label: 'Калькулятор',
+            label: 'Calculator',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.newspaper),
-            label: 'Новости',
+            label: 'News',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Настройки',
+            label: 'Settings',
           ),
         ],
       ),

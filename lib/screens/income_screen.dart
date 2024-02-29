@@ -22,9 +22,9 @@ class _IncomeWidgetScreenState extends State<IncomeWidgetScreen> {
       mask: '##.##.####', filter: {"#": RegExp(r'[0-9]')});
   int selectedIdx = 0;
   List<Category> categoryList = [
-    Category(name: "Зароботная плата", icon: Icons.money),
-    Category(name: "Инвестиции", icon: Icons.present_to_all),
-    Category(name: "Подарок", icon: Icons.home),
+    Category(name: "Salory", icon: Icons.money),
+    Category(name: "Investments", icon: Icons.present_to_all),
+    Category(name: "Present", icon: Icons.home),
   ];
   Future<void> _selectDate(BuildContext context) async {
     DateTime currentDate = DateTime.now();
@@ -57,7 +57,7 @@ class _IncomeWidgetScreenState extends State<IncomeWidgetScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Добавить доходы',
+                'Add income',
                 style: extens,
               ),
               IconButton(
@@ -72,7 +72,7 @@ class _IncomeWidgetScreenState extends State<IncomeWidgetScreen> {
           ),
           SizedBox(height: 15),
           Text(
-            'Описание',
+            'Description',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -80,11 +80,11 @@ class _IncomeWidgetScreenState extends State<IncomeWidgetScreen> {
             controller: discription,
             style: discriptionText.copyWith(color: Colors.white),
             decoration:
-                styleTextField.copyWith(hintText: 'Например (Зарплата)'),
+                styleTextField.copyWith(hintText: 'For example (Salary)'),
           ),
           SizedBox(height: 25),
           Text(
-            'Сумма',
+            'Sum',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -95,7 +95,7 @@ class _IncomeWidgetScreenState extends State<IncomeWidgetScreen> {
           ),
           SizedBox(height: 25),
           Text(
-            'Дата',
+            'Date',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -110,7 +110,7 @@ class _IncomeWidgetScreenState extends State<IncomeWidgetScreen> {
           ),
           SizedBox(height: 25),
           Text(
-            'Категории',
+            'Category',
             style: discriptionText,
           ),
           SizedBox(height: 15),
@@ -138,7 +138,7 @@ class _IncomeWidgetScreenState extends State<IncomeWidgetScreen> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                'Добавить',
+                'Add',
                 style: TextStyle(color: Color(0xFF002E58)),
               ),
             ),

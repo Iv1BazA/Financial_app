@@ -39,7 +39,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
         children: [
           SizedBox(height: 45),
           Text(
-            'Аналитика',
+            'Analytics',
             style: cost.copyWith(fontSize: 32),
           ),
           SizedBox(height: 25),
@@ -94,7 +94,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Общая сумма',
+                    'Total amount',
                     style: discriptionText.copyWith(color: Colors.white),
                   ),
                   FutureBuilder(
@@ -146,7 +146,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Доходы',
+                          'Income',
                           style: discriptionText.copyWith(color: Colors.white),
                         ),
                         Consumer<IncomeProvider>(
@@ -181,7 +181,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Расходы',
+                            'Expenses',
                             style:
                                 discriptionText.copyWith(color: Colors.white),
                           ),
@@ -282,10 +282,10 @@ class _ToggleButtonsAnaliticsWidgetState
       height: 40,
       child: ToggleButtons(
         children: [
-          buildToggleButton('Сегодня', 0),
-          buildToggleButton('Неделя', 1),
-          buildToggleButton('Месяц', 2),
-          buildToggleButton('Год', 3),
+          buildToggleButton('Today', 0),
+          buildToggleButton('Week', 1),
+          buildToggleButton('Month', 2),
+          buildToggleButton('Year', 3),
         ],
         onPressed: widget.onTap,
         isSelected: List.generate(

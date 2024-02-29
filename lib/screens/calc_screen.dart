@@ -33,7 +33,7 @@ class _CalcExpIncWidgetState extends State<CalcExpIncWidget> {
               Column(
                 children: [
                   Text(
-                    'Общая сумма',
+                    'Total amount',
                     style: sum,
                   ),
                   FutureBuilder(
@@ -91,7 +91,7 @@ class _CalcExpIncWidgetState extends State<CalcExpIncWidget> {
                   );
                 },
                 child: Text(
-                  'Добавить',
+                  'Add',
                   style: discriptionText.copyWith(color: Colors.white),
                 ),
               ),
@@ -140,7 +140,7 @@ class ToggleButtonsWidget extends StatelessWidget {
             width: 178,
             child: Center(
               child: Text(
-                'Доходы',
+                'Income',
                 style: TextStyle(
                   color: isSelected[0]
                       ? Color(0xFF002E58)
@@ -156,7 +156,7 @@ class ToggleButtonsWidget extends StatelessWidget {
             width: 190,
             child: Center(
               child: Text(
-                'Расходы',
+                'Expenses',
                 style: TextStyle(
                   color: isSelected[1]
                       ? Color(0xFF002E58)

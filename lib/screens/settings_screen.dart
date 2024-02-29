@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
         children: [
           SizedBox(height: 55),
           Text(
-            'Настройки',
+            'Settings',
             style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
@@ -45,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 10),
                   Text(
-                    'Сбросить сумму',
+                    'Reset amount',
                     style: discriptionText.copyWith(color: Colors.white),
                   )
                 ],
@@ -70,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      'Поделиться с друзьями',
+                      'Share with friends',
                       style: discriptionText.copyWith(color: Colors.white),
                     ),
                     Spacer(),
@@ -101,7 +101,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      'Политика конфидециальности',
+                      'Privacy Policy',
                       style: discriptionText.copyWith(color: Colors.white),
                     ),
                     Spacer(),
@@ -132,7 +132,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      'Условия эксплуатации',
+                      'terms of Use',
                       style: discriptionText.copyWith(color: Colors.white),
                     ),
                     Spacer(),

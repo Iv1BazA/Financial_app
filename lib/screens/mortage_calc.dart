@@ -100,7 +100,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Ипотечный калькулятор \nрассчитал',
+                'Mortgage calculator  \ncalculated',
                 style: extens,
               ),
               IconButton(
@@ -114,7 +114,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
             ],
           ),
           SizedBox(height: 16),
-          Text('Процентная ставка', style: discriptionText),
+          Text('Interest rate', style: discriptionText),
           SizedBox(height: 8),
           buildProgressBar(
             value: firstProgressBarValue,
@@ -122,7 +122,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
             fillColor: Colors.white,
           ),
           SizedBox(height: 8),
-          Text('Основной долг', style: discriptionText),
+          Text('Main debt', style: discriptionText),
           SizedBox(height: 16),
           buildProgressBar(
             value: secondProgressBarValue,
@@ -144,7 +144,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Основной долг',
+                          'Main debt',
                           style: discriptionText.copyWith(color: Colors.white),
                         ),
                         Text(('${maindolg}₽'), style: discriptionText)
@@ -160,7 +160,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Процентная ставка',
+                            'Interest rate',
                             style:
                                 discriptionText.copyWith(color: Colors.white),
                           ),
@@ -186,7 +186,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Ежемесячная оплата',
+                          'Monthly fee',
                           style: discriptionText.copyWith(color: Colors.white),
                         ),
                         Text(('${monthpay}₽'), style: discriptionText)
@@ -202,7 +202,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Начисленные предметы',
+                            'Interest charges',
                             style:
                                 discriptionText.copyWith(color: Colors.white),
                           ),
@@ -220,7 +220,7 @@ class _MortgageCalcWidgetState extends State<MortgageCalcWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Долг + проценты',
+                            'Debt + interest',
                             style:
                                 discriptionText.copyWith(color: Colors.white),
                           ),

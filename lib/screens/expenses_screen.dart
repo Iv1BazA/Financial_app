@@ -16,11 +16,11 @@ class ExpensesWidget extends StatefulWidget {
 class _ExpensesWidgetState extends State<ExpensesWidget> {
   int selectedIdx = 0;
   List<Category> categoryList = [
-    Category(name: "Еда", icon: Icons.food_bank),
-    Category(name: "Транспорт", icon: Icons.directions_car),
-    Category(name: "Жилье", icon: Icons.home),
-    Category(name: "Развлечения", icon: Icons.sports_esports),
-    Category(name: "Прочее", icon: Icons.category),
+    Category(name: "Food", icon: Icons.food_bank),
+    Category(name: "Transpoer", icon: Icons.directions_car),
+    Category(name: "Housing", icon: Icons.home),
+    Category(name: "Entertainment", icon: Icons.sports_esports),
+    Category(name: "Other", icon: Icons.category),
   ];
   final discription = TextEditingController();
   final cost = TextEditingController();
@@ -59,7 +59,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Добавить расходы',
+                'Add expenses',
                 style: extens,
               ),
               IconButton(
@@ -74,7 +74,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
           ),
           SizedBox(height: 15),
           Text(
-            'Описание',
+            'Description',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -82,11 +82,11 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
             controller: discription,
             style: discriptionText.copyWith(color: Colors.white),
             decoration: styleTextField.copyWith(
-                hintText: 'Например (Покупка велосипеда)'),
+                hintText: 'For example (Buying a bike)'),
           ),
           SizedBox(height: 25),
           Text(
-            'Сумма',
+            'Sum',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -97,7 +97,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
           ),
           SizedBox(height: 25),
           Text(
-            'Дата',
+            'Date',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -112,7 +112,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
           ),
           SizedBox(height: 25),
           Text(
-            'Категории',
+            'Category',
             style: discriptionText,
           ),
           SizedBox(height: 15),
@@ -141,7 +141,7 @@ class _ExpensesWidgetState extends State<ExpensesWidget> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                'Добавить',
+                'Add',
                 style: TextStyle(color: Color(0xFF002E58)),
               ),
             ),

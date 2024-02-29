@@ -40,11 +40,55 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0xFF002E58),
       ),
-      home: const StartWidget(),
+      home: SplashScreen(),
       routes: {
         '/mainscreen': (context) => MainScreenWidget(),
         '/qwe': (context) => ExpensesWidget()
       },
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  late SharedPreferences prefs;
+  bool showInstructions = true;
+
+  @override
+  void initState() {
+    super.initState();
+    checkInstructionsStatus();
+  }
+
+  Future<void> checkInstructionsStatus() async {
+    prefs = await SharedPreferences.getInstance();
+    bool shouldShowInstructions = prefs.getBool('showInstructions') ?? true;
+
+    setState(() {
+      showInstructions = shouldShowInstructions;
+    });
+
+    // Если инструкции еще не отображались, отобразите их
+    if (showInstructions) {
+      await prefs.setBool('showInstructions', false);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => StartWidget()));
+    } else {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MainScreenWidget()));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

@@ -27,12 +27,12 @@ class _MortgageWidgetState extends State<MortgageWidget> {
         children: [
           SizedBox(height: 45),
           Text(
-            'Ипотечный \nкалькулятор',
+            'Mortgage \ncalculator',
             style: cost.copyWith(fontSize: 32),
           ),
           SizedBox(height: 25),
           Text(
-            'Стоимость имущества',
+            'Property value',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -43,7 +43,7 @@ class _MortgageWidgetState extends State<MortgageWidget> {
           ),
           SizedBox(height: 25),
           Text(
-            'Первоначальный взнос',
+            'First pay',
             style: discriptionText,
           ),
           SizedBox(height: 5),
@@ -59,14 +59,14 @@ class _MortgageWidgetState extends State<MortgageWidget> {
               Container(
                 width: 170,
                 child: Text(
-                  'Срок',
+                  'Term',
                   style: discriptionText,
                 ),
               ),
               Container(
                 width: 170,
                 child: Text(
-                  '% Ставка',
+                  '% Rate',
                   style: discriptionText,
                 ),
               )
@@ -135,7 +135,7 @@ class _MortgageWidgetState extends State<MortgageWidget> {
                 );
               },
               child: Text(
-                'Рассчитать',
+                'Calculate',
                 style: TextStyle(color: Color(0xFF002E58)),
               ),
             ),

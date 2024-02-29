@@ -67,7 +67,7 @@ class _NewsScreenWidgetState extends State<NewsScreenWidget> {
         children: [
           SizedBox(height: 45),
           Text(
-            'Новости',
+            'News',
             style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w600,
